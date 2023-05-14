@@ -34,7 +34,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link Doubles}.
@@ -608,7 +607,7 @@ public class DoublesTest extends TestCase {
    * A reference implementation for {@code tryParse} that just catches the exception from {@link
    * Double#valueOf}.
    */
-  private static @Nullable Double referenceTryParse(String input) {
+  private static Double referenceTryParse(String input) {
     if (input.trim().length() < input.length()) {
       return null;
     }

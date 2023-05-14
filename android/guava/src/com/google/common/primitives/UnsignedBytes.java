@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndexes;
 import static java.util.Objects.requireNonNull;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.annotations.VisibleForTesting;
@@ -168,6 +169,7 @@ public final class UnsignedBytes {
    *
    * @since 13.0
    */
+  @Beta
   public static String toString(byte x) {
     return toString(x, 10);
   }
@@ -182,6 +184,7 @@ public final class UnsignedBytes {
    *     and {@link Character#MAX_RADIX}.
    * @since 13.0
    */
+  @Beta
   public static String toString(byte x, int radix) {
     checkArgument(
         radix >= Character.MIN_RADIX && radix <= Character.MAX_RADIX,
@@ -200,6 +203,7 @@ public final class UnsignedBytes {
    *     Byte#parseByte(String)})
    * @since 13.0
    */
+  @Beta
   @CanIgnoreReturnValue
   public static byte parseUnsignedByte(String string) {
     return parseUnsignedByte(string, 10);
@@ -217,6 +221,7 @@ public final class UnsignedBytes {
    *     Byte#parseByte(String)})
    * @since 13.0
    */
+  @Beta
   @CanIgnoreReturnValue
   public static byte parseUnsignedByte(String string, int radix) {
     int parse = Integer.parseInt(checkNotNull(string), radix);

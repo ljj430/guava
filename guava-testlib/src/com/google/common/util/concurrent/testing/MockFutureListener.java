@@ -19,6 +19,7 @@ package com.google.common.util.concurrent.testing;
 import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.util.concurrent.ListenableFuture;
 import java.util.concurrent.CountDownLatch;
@@ -31,6 +32,7 @@ import junit.framework.Assert;
  * @author Nishant Thakkar
  * @since 10.0
  */
+@Beta
 @GwtIncompatible
 public class MockFutureListener implements Runnable {
   private final CountDownLatch countDownLatch;

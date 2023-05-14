@@ -16,15 +16,16 @@
 
 package com.google.common.collect;
 
-import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.collect.Iterables.concat;
 import static com.google.common.collect.Lists.newArrayList;
 import static com.google.common.collect.Lists.newLinkedList;
 import static com.google.common.truth.Truth.assertThat;
+import static java.util.Arrays.asList;
 import static java.util.Collections.nCopies;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.testing.CollectionTestSuiteBuilder;
 import com.google.common.collect.testing.TestStringCollectionGenerator;
@@ -62,10 +63,29 @@ public class Collections2Test extends TestCase {
     return suite;
   }
 
-  static final Predicate<@Nullable String> NOT_YYY_ZZZ =
-      input -> !"yyy".equals(input) && !"zzz".equals(input);
+  static final Predicate<String> NOT_YYY_ZZZ =
+      new Predicate<String>() {
+        @Override
+        public boolean apply(String input) {
+          return !"yyy".equals(input) && !"zzz".equals(input);
+        }
+      };
 
-  static final Predicate<String> LENGTH_1 = input -> input.length() == 1;
+  static final Predicate<String> LENGTH_1 =
+      new Predicate<String>() {
+        @Override
+        public boolean apply(String input) {
+          return input.length() == 1;
+        }
+      };
+
+  static final Predicate<String> STARTS_WITH_VOWEL =
+      new Predicate<String>() {
+        @Override
+        public boolean apply(String input) {
+          return asList('a', 'e', 'i', 'o', 'u').contains(input.charAt(0));
+        }
+      };
 
   @GwtIncompatible // suite
   private static Test testsForFilter() {
@@ -181,6 +201,14 @@ public class Collections2Test extends TestCase {
         .createTestSuite();
   }
 
+  private static final Function<@Nullable String, @Nullable String> REMOVE_FIRST_CHAR =
+      new Function<@Nullable String, @Nullable String>() {
+        @Override
+        public @Nullable String apply(@Nullable String from) {
+          return ((from == null) || "".equals(from)) ? null : from.substring(1);
+        }
+      };
+
   @GwtIncompatible // suite
   private static Test testsForTransform() {
     return CollectionTestSuiteBuilder.using(
@@ -191,8 +219,7 @@ public class Collections2Test extends TestCase {
                 for (String element : elements) {
                   list.add((element == null) ? null : "q" + element);
                 }
-                return Collections2.transform(
-                    list, from -> isNullOrEmpty(from) ? null : from.substring(1));
+                return Collections2.transform(list, REMOVE_FIRST_CHAR);
               }
             })
         .named("Collections2.transform")

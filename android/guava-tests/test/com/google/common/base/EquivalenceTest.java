@@ -18,7 +18,6 @@ package com.google.common.base;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.base.Equivalence.Wrapper;
 import com.google.common.collect.ImmutableList;
 import com.google.common.testing.EqualsTester;
@@ -32,7 +31,6 @@ import junit.framework.TestCase;
  *
  * @author Jige Yu
  */
-@ElementTypesAreNonnullByDefault
 @GwtCompatible(emulated = true)
 public class EquivalenceTest extends TestCase {
   @SuppressWarnings("unchecked") // varargs
@@ -83,7 +81,6 @@ public class EquivalenceTest extends TestCase {
     assertSame(test, wrapper.get());
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testSerialization() {
     SerializableTester.reserializeAndAssert(LENGTH_EQUIVALENCE.wrap("hello"));
@@ -160,16 +157,10 @@ public class EquivalenceTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
-  public void testNulls() throws NoSuchMethodException {
-    NullPointerTester tester = new NullPointerTester();
-    // Necessary until JDK15:
-    // https://bugs.openjdk.org/browse/JDK-8202469
-    tester.ignore(Equivalence.class.getMethod("wrap", Object.class));
-
-    tester.testAllPublicStaticMethods(Equivalence.class);
-    tester.testAllPublicInstanceMethods(Equivalence.equals());
-    tester.testAllPublicInstanceMethods(Equivalence.identity());
+  public void testNulls() {
+    new NullPointerTester().testAllPublicStaticMethods(Equivalence.class);
+    new NullPointerTester().testAllPublicInstanceMethods(Equivalence.equals());
+    new NullPointerTester().testAllPublicInstanceMethods(Equivalence.identity());
   }
 }

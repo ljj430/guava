@@ -19,6 +19,7 @@ import static com.google.common.base.Preconditions.checkElementIndex;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkPositionIndexes;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Converter;
@@ -268,6 +269,7 @@ public final class Ints extends IntsMethodsForWeb {
    * @throws IllegalArgumentException if {@code min > max}
    * @since 21.0
    */
+  @Beta
   public static int constrainToRange(int value, int min, int max) {
     checkArgument(min <= max, "min (%s) must be less than or equal to max (%s)", min, max);
     return Math.min(Math.max(value, min), max);
@@ -372,6 +374,7 @@ public final class Ints extends IntsMethodsForWeb {
    *
    * @since 16.0
    */
+  @Beta
   public static Converter<String, Integer> stringConverter() {
     return IntConverter.INSTANCE;
   }

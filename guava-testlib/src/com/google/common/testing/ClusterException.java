@@ -59,7 +59,6 @@ import java.util.Collections;
  * @author Luiz-Otavio Zorzella
  */
 @GwtCompatible
-@ElementTypesAreNonnullByDefault
 final class ClusterException extends RuntimeException {
 
   final Collection<? extends Throwable> exceptions;
@@ -68,7 +67,7 @@ final class ClusterException extends RuntimeException {
     super(
         exceptions.size() + " exceptions were thrown. The first exception is listed as a cause.",
         exceptions.iterator().next());
-    ArrayList<? extends Throwable> temp = new ArrayList<>(exceptions);
+    ArrayList<Throwable> temp = new ArrayList<>(exceptions);
     this.exceptions = Collections.unmodifiableCollection(temp);
   }
 

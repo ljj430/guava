@@ -31,7 +31,6 @@ import java.io.ObjectOutputStream;
  * @author Chris Povirk
  */
 @GwtCompatible(emulated = true)
-@ElementTypesAreNonnullByDefault
 final class Platform {
   /** Serializes and deserializes the specified object. */
   @SuppressWarnings("unchecked")

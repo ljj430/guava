@@ -72,7 +72,7 @@ public class ForwardingSortedMapTest extends TestCase {
     }
 
     @Override
-    public @Nullable V remove(Object object) {
+    public V remove(Object object) {
       return standardRemove(object);
     }
 

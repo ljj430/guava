@@ -26,7 +26,6 @@ import com.google.errorprone.annotations.Immutable;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.CheckForNull;
-import org.checkerframework.checker.nullness.qual.NonNull;
 
 /**
  * A {@link ClassToInstanceMap} whose contents will never change, with many other important
@@ -38,9 +37,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 @Immutable(containerOf = "B")
 @GwtIncompatible
 @ElementTypesAreNonnullByDefault
-// TODO(b/278589132): Remove the redundant "@NonNull" on B once it's no longer required by J2KT.
-public final class ImmutableClassToInstanceMap<B>
-    extends ForwardingMap<Class<? extends @NonNull B>, B>
+public final class ImmutableClassToInstanceMap<B> extends ForwardingMap<Class<? extends B>, B>
     implements ClassToInstanceMap<B>, Serializable {
 
   private static final ImmutableClassToInstanceMap<Object> EMPTY =
@@ -123,7 +120,7 @@ public final class ImmutableClassToInstanceMap<B>
       return this;
     }
 
-    private static <T> T cast(Class<T> type, Object value) {
+    private static <B, T extends B> T cast(Class<T> type, B value) {
       return Primitives.wrap(type).cast(value);
     }
 

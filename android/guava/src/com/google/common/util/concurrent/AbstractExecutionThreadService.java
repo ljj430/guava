@@ -16,6 +16,7 @@ package com.google.common.util.concurrent;
 
 import static com.google.common.util.concurrent.Platform.restoreInterruptIfIsInterruptedException;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.J2ktIncompatible;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
@@ -141,6 +142,7 @@ public abstract class AbstractExecutionThreadService implements Service {
    * implementing {@code stopping}. Note, however, that {@code stopping} does not run at exactly the
    * same times as {@code triggerShutdown}.
    */
+  @Beta
   protected void triggerShutdown() {}
 
   /**

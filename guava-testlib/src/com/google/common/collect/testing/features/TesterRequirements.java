@@ -20,7 +20,6 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.testing.Helpers;
 import java.util.Collections;
 import java.util.Set;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Encapsulates the constraints that a class under test must satisfy in order for a tester method to
@@ -55,7 +54,7 @@ public final class TesterRequirements {
   }
 
   @Override
-  public boolean equals(@Nullable Object object) {
+  public boolean equals(Object object) {
     if (object == this) {
       return true;
     }

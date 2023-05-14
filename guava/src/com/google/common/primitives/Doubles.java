@@ -22,9 +22,9 @@ import static com.google.common.base.Strings.lenientFormat;
 import static java.lang.Double.NEGATIVE_INFINITY;
 import static java.lang.Double.POSITIVE_INFINITY;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.base.Converter;
 import java.io.Serializable;
 import java.util.AbstractList;
@@ -255,6 +255,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    * @throws IllegalArgumentException if {@code min > max}
    * @since 21.0
    */
+  @Beta
   public static double constrainToRange(double value, double min, double max) {
     // avoid auto-boxing by not using Preconditions.checkArgument(); see Guava issue 3984
     // Reject NaN by testing for the good case (min <= max) instead of the bad (min > max).
@@ -319,6 +320,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    *
    * @since 16.0
    */
+  @Beta
   public static Converter<String, Double> stringConverter() {
     return DoubleConverter.INSTANCE;
   }
@@ -712,7 +714,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    * inputs. All valid inputs must pass this regex, but it's semantically fine if not all inputs
    * that pass this regex are valid -- only a performance hit is incurred, not a semantics bug.
    */
-  @J2ktIncompatible @GwtIncompatible // regular expressions
+  @GwtIncompatible // regular expressions
   static final
   java.util.regex.Pattern
       FLOATING_POINT_PATTERN = fpPattern();
@@ -758,7 +760,6 @@ public final class Doubles extends DoublesMethodsForWeb {
    * @throws NullPointerException if {@code string} is {@code null}
    * @since 14.0
    */
-  @J2ktIncompatible
   @GwtIncompatible // regular expressions
   @CheckForNull
   public static Double tryParse(String string) {

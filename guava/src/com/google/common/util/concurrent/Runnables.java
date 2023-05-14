@@ -14,6 +14,7 @@
 
 package com.google.common.util.concurrent;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 
 /**
@@ -21,6 +22,7 @@ import com.google.common.annotations.GwtCompatible;
  *
  * @since 16.0
  */
+@Beta
 @GwtCompatible
 @ElementTypesAreNonnullByDefault
 public final class Runnables {

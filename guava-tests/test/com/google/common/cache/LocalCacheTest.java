@@ -2903,7 +2903,7 @@ public class LocalCacheTest extends TestCase {
     }
 
     @Override
-    public @Nullable ReferenceEntry<K, V> getEntry() {
+    public ReferenceEntry<K, V> getEntry() {
       return null;
     }
 

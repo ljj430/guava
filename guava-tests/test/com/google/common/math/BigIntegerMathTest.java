@@ -40,7 +40,6 @@ import static java.util.Arrays.asList;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.testing.NullPointerTester;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.math.BigDecimal;
@@ -56,7 +55,6 @@ import junit.framework.TestCase;
  *
  * @author Louis Wasserman
  */
-@ElementTypesAreNonnullByDefault
 @GwtCompatible(emulated = true)
 public class BigIntegerMathTest extends TestCase {
   public void testCeilingPowerOfTwo() {
@@ -113,7 +111,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testConstantSqrt2PrecomputedBits() {
     assertEquals(
@@ -217,7 +214,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10ZeroAlwaysThrows() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
@@ -229,7 +225,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10NegativeAlwaysThrows() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
@@ -241,7 +236,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10Floor() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -253,7 +247,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10Ceiling() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -266,7 +259,6 @@ public class BigIntegerMathTest extends TestCase {
   }
 
   // Relies on the correctness of log10(BigInteger, FLOOR).
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10Exact() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -281,7 +273,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10HalfUp() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -294,7 +285,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10HalfDown() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -308,7 +298,6 @@ public class BigIntegerMathTest extends TestCase {
   }
 
   // Relies on the correctness of log10(BigInteger, {HALF_UP,HALF_DOWN}).
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10HalfEven() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -320,7 +309,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testLog10TrivialOnPowerOf10() {
     BigInteger x = BigInteger.TEN.pow(100);
@@ -329,7 +317,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtZeroAlwaysZero() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
@@ -337,7 +324,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtNegativeAlwaysThrows() {
     for (RoundingMode mode : ALL_ROUNDING_MODES) {
@@ -349,7 +335,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtFloor() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -362,7 +347,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtCeiling() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -376,7 +360,6 @@ public class BigIntegerMathTest extends TestCase {
   }
 
   // Relies on the correctness of sqrt(BigInteger, FLOOR).
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtExact() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -392,7 +375,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtHalfUp() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -409,7 +391,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtHalfDown() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -427,7 +408,6 @@ public class BigIntegerMathTest extends TestCase {
   }
 
   // Relies on the correctness of sqrt(BigInteger, {HALF_UP,HALF_DOWN}).
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testSqrtHalfEven() {
     for (BigInteger x : POSITIVE_BIGINTEGER_CANDIDATES) {
@@ -439,7 +419,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   @AndroidIncompatible // slow
   public void testDivNonZero() {
@@ -460,7 +439,6 @@ public class BigIntegerMathTest extends TestCase {
   private static final BigInteger BAD_FOR_GINGERBREAD_P = new BigInteger("-9223372036854775808");
   private static final BigInteger BAD_FOR_GINGERBREAD_Q = new BigInteger("-4294967296");
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   @AndroidIncompatible // slow
   public void testDivNonZeroExact() {
@@ -492,7 +470,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testZeroDivIsAlwaysZero() {
     for (BigInteger q : NONZERO_BIGINTEGER_CANDIDATES) {
@@ -502,7 +479,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // TODO
   public void testDivByZeroAlwaysFails() {
     for (BigInteger p : ALL_BIGINTEGER_CANDIDATES) {
@@ -540,7 +516,6 @@ public class BigIntegerMathTest extends TestCase {
     runBinomialTest(0, 30);
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // too slow
   public void testBinomialLarge() {
     runBinomialTest(31, 100);
@@ -574,7 +549,6 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   private static final class RoundToDoubleTester {
     private final BigInteger input;
@@ -627,19 +601,16 @@ public class BigIntegerMathTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_Zero() {
     new RoundToDoubleTester(BigInteger.ZERO).setExpectation(0.0, values()).test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_smallPositive() {
     new RoundToDoubleTester(BigInteger.valueOf(16)).setExpectation(16.0, values()).test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_maxPreciselyRepresentable() {
     new RoundToDoubleTester(BigInteger.valueOf(1L << 53))
@@ -647,7 +618,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_maxPreciselyRepresentablePlusOne() {
     double twoToThe53 = Math.pow(2, 53);
@@ -660,7 +630,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_twoToThe54PlusOne() {
     double twoToThe54 = Math.pow(2, 54);
@@ -673,7 +642,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_twoToThe54PlusThree() {
     double twoToThe54 = Math.pow(2, 54);
@@ -686,7 +654,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_twoToThe54PlusFour() {
     new RoundToDoubleTester(BigInteger.valueOf((1L << 54) + 4))
@@ -694,14 +661,12 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_maxDouble() {
     BigInteger maxDoubleAsBI = DoubleMath.roundToBigInteger(Double.MAX_VALUE, UNNECESSARY);
     new RoundToDoubleTester(maxDoubleAsBI).setExpectation(Double.MAX_VALUE, values()).test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_maxDoublePlusOne() {
     BigInteger maxDoubleAsBI =
@@ -713,7 +678,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_wayTooBig() {
     BigInteger bi = BigInteger.ONE.shiftLeft(2 * Double.MAX_EXPONENT);
@@ -724,13 +688,11 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_smallNegative() {
     new RoundToDoubleTester(BigInteger.valueOf(-16)).setExpectation(-16.0, values()).test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_minPreciselyRepresentable() {
     new RoundToDoubleTester(BigInteger.valueOf(-1L << 53))
@@ -738,7 +700,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_minPreciselyRepresentableMinusOne() {
     // the representable doubles are -2^53 and -2^53 - 2.
@@ -750,7 +711,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_negativeTwoToThe54MinusOne() {
     new RoundToDoubleTester(BigInteger.valueOf((-1L << 54) - 1))
@@ -760,7 +720,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_negativeTwoToThe54MinusThree() {
     new RoundToDoubleTester(BigInteger.valueOf((-1L << 54) - 3))
@@ -771,7 +730,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_negativeTwoToThe54MinusFour() {
     new RoundToDoubleTester(BigInteger.valueOf((-1L << 54) - 4))
@@ -779,14 +737,12 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_minDouble() {
     BigInteger minDoubleAsBI = DoubleMath.roundToBigInteger(-Double.MAX_VALUE, UNNECESSARY);
     new RoundToDoubleTester(minDoubleAsBI).setExpectation(-Double.MAX_VALUE, values()).test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_minDoubleMinusOne() {
     BigInteger minDoubleAsBI =
@@ -798,7 +754,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible
   public void testRoundToDouble_negativeWayTooBig() {
     BigInteger bi = BigInteger.ONE.shiftLeft(2 * Double.MAX_EXPONENT).negate();
@@ -809,7 +764,6 @@ public class BigIntegerMathTest extends TestCase {
         .test();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testNullPointers() {
     NullPointerTester tester = new NullPointerTester();
@@ -819,7 +773,6 @@ public class BigIntegerMathTest extends TestCase {
     tester.testAllPublicStaticMethods(BigIntegerMath.class);
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // String.format
   private static void failFormat(String template, Object... args) {
     fail(String.format(template, args));

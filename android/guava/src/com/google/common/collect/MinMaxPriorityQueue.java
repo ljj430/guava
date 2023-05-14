@@ -23,6 +23,7 @@ import static com.google.common.base.Preconditions.checkState;
 import static com.google.common.collect.CollectPreconditions.checkRemove;
 import static java.util.Objects.requireNonNull;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.annotations.VisibleForTesting;
@@ -98,6 +99,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Torbjorn Gannholm
  * @since 8.0
  */
+@Beta
 @GwtCompatible
 @ElementTypesAreNonnullByDefault
 public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
@@ -161,6 +163,7 @@ public final class MinMaxPriorityQueue<E> extends AbstractQueue<E> {
    *     Queue<Integer>} but not a {@code Queue<Object>}).
    * @since 8.0
    */
+  @Beta
   public static final class Builder<B> {
     /*
      * TODO(kevinb): when the dust settles, see if we still need this or can

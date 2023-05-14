@@ -21,6 +21,7 @@ import static com.google.common.base.Preconditions.checkElementIndex;
 import static com.google.common.base.Preconditions.checkNotNull;
 import static java.util.Collections.emptyMap;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Objects;
@@ -87,6 +88,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Jared Levy
  * @since 10.0
  */
+@Beta
 @GwtCompatible(emulated = true)
 @ElementTypesAreNonnullByDefault
 public final class ArrayTable<R, C, V> extends AbstractTable<R, C, @Nullable V>

@@ -18,6 +18,7 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkArgument;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import java.util.Comparator;
 import java.util.NoSuchElementException;
@@ -102,6 +103,7 @@ public abstract class ForwardingSortedMap<K extends @Nullable Object, V extends 
    *
    * @since 15.0
    */
+  @Beta
   protected class StandardKeySet extends Maps.SortedKeySet<K, V> {
     /** Constructor for use by subclasses. */
     public StandardKeySet() {
@@ -128,6 +130,7 @@ public abstract class ForwardingSortedMap<K extends @Nullable Object, V extends 
    * @since 7.0
    */
   @Override
+  @Beta
   protected boolean standardContainsKey(@CheckForNull Object key) {
     try {
       // any CCE or NPE will be caught
@@ -147,6 +150,7 @@ public abstract class ForwardingSortedMap<K extends @Nullable Object, V extends 
    *
    * @since 7.0
    */
+  @Beta
   protected SortedMap<K, V> standardSubMap(K fromKey, K toKey) {
     checkArgument(unsafeCompare(comparator(), fromKey, toKey) <= 0, "fromKey must be <= toKey");
     return tailMap(fromKey).headMap(toKey);

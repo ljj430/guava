@@ -21,7 +21,6 @@ import static com.google.common.collect.Lists.newArrayList;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.testing.ClassSanityTester;
 import com.google.common.testing.EqualsTester;
@@ -44,8 +43,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kevin Bourrillion
  */
-@ElementTypesAreNonnullByDefault
-@J2ktIncompatible // TODO(b/278877942): Enable
 @GwtCompatible(emulated = true)
 public class PredicatesTest extends TestCase {
   private static final Predicate<Integer> TRUE = Predicates.alwaysTrue();
@@ -109,7 +106,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testAlwaysTrue_serialization() {
     checkSerialization(Predicates.alwaysTrue());
@@ -131,7 +127,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testAlwaysFalse_serialization() {
     checkSerialization(Predicates.alwaysFalse());
@@ -181,7 +176,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testNot_serialization() {
     checkSerialization(Predicates.not(isOdd()));
@@ -205,7 +199,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_serializationNoArgs() {
@@ -229,7 +222,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_serializationOneArg() {
@@ -252,7 +244,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testAnd_serializationBinary() {
     checkSerialization(Predicates.and(TRUE, isOdd()));
@@ -278,7 +269,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_serializationTernary() {
@@ -306,7 +296,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testAnd_serializationIterable() {
@@ -363,7 +352,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testOr_serializationNoArgs() {
@@ -387,7 +375,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testOr_serializationOneArg() {
@@ -414,7 +401,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testOr_serializationBinary() {
     checkSerialization(Predicates.or(isOdd(), TRUE));
@@ -439,7 +425,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testOr_serializationTernary() {
@@ -473,7 +458,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   @SuppressWarnings("unchecked") // varargs
   public void testOr_serializationIterable() {
@@ -534,7 +518,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testIsEqualTo_serialization() {
     checkSerialization(Predicates.equalTo(1));
@@ -554,7 +537,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testIsEqualToNull_serialization() {
     checkSerialization(Predicates.equalTo(null));
@@ -565,7 +547,6 @@ public class PredicatesTest extends TestCase {
    * stripper to remove comments properly. Currently, all tests before the comments are removed as
    * well.
    */
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.instanceOf
   public void testIsInstanceOf_apply() {
     Predicate<Object> isInteger = Predicates.instanceOf(Integer.class);
@@ -576,7 +557,6 @@ public class PredicatesTest extends TestCase {
     assertFalse(isInteger.apply(null));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.instanceOf
   public void testIsInstanceOf_subclass() {
     Predicate<Object> isNumber = Predicates.instanceOf(Number.class);
@@ -587,7 +567,6 @@ public class PredicatesTest extends TestCase {
     assertFalse(isNumber.apply(null));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.instanceOf
   public void testIsInstanceOf_interface() {
     Predicate<Object> isComparable = Predicates.instanceOf(Comparable.class);
@@ -598,7 +577,6 @@ public class PredicatesTest extends TestCase {
     assertFalse(isComparable.apply(null));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.instanceOf
   public void testIsInstanceOf_equality() {
     new EqualsTester()
@@ -609,13 +587,11 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.instanceOf, SerializableTester
   public void testIsInstanceOf_serialization() {
     checkSerialization(Predicates.instanceOf(Integer.class));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.subtypeOf
   public void testSubtypeOf_apply() {
     Predicate<Class<?>> isInteger = Predicates.subtypeOf(Integer.class);
@@ -630,7 +606,6 @@ public class PredicatesTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.subtypeOf
   public void testSubtypeOf_subclass() {
     Predicate<Class<?>> isNumber = Predicates.subtypeOf(Number.class);
@@ -639,7 +614,6 @@ public class PredicatesTest extends TestCase {
     assertTrue(isNumber.apply(Float.class));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.subtypeOf
   public void testSubtypeOf_interface() {
     Predicate<Class<?>> isComparable = Predicates.subtypeOf(Comparable.class);
@@ -648,7 +622,6 @@ public class PredicatesTest extends TestCase {
     assertTrue(isComparable.apply(Float.class));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.subtypeOf
   public void testSubtypeOf_equality() {
     new EqualsTester()
@@ -658,7 +631,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.subtypeOf, SerializableTester
   public void testSubtypeOf_serialization() {
     Predicate<Class<?>> predicate = Predicates.subtypeOf(Integer.class);
@@ -686,7 +658,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testIsNull_serialization() {
     Predicate<String> pre = Predicates.isNull();
@@ -708,7 +679,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testNotNull_serialization() {
     checkSerialization(Predicates.notNull());
@@ -740,7 +710,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testIn_serialization() {
     checkSerialization(Predicates.in(Arrays.asList(1, 2, 3, null)));
@@ -789,7 +758,6 @@ public class PredicatesTest extends TestCase {
     // Predicate<Integer> p4 = Predicates.<Integer>in(nums);
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testNullPointerExceptions() {
     NullPointerTester tester = new NullPointerTester();
@@ -797,7 +765,6 @@ public class PredicatesTest extends TestCase {
   }
 
   @SuppressWarnings("unchecked") // varargs
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testCascadingSerialization() throws Exception {
     // Eclipse says Predicate<Integer>; javac says Predicate<Object>.
@@ -849,7 +816,6 @@ public class PredicatesTest extends TestCase {
         .testEquals();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testComposeSerialization() {
     Function<String, String> trim = TrimStringFunction.INSTANCE;
@@ -863,7 +829,6 @@ public class PredicatesTest extends TestCase {
    * works, so there are only trivial tests of that aspect. TODO: Fix comment style once annotation
    * stripper is fixed.
    */
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.containsPattern
   public void testContainsPattern_apply() {
     Predicate<CharSequence> isFoobar = Predicates.containsPattern("^Fo.*o.*bar$");
@@ -871,7 +836,6 @@ public class PredicatesTest extends TestCase {
     assertFalse(isFoobar.apply("Foobarx"));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // Predicates.containsPattern
   public void testContains_apply() {
     Predicate<CharSequence> isFoobar = Predicates.contains(Pattern.compile("^Fo.*o.*bar$"));
@@ -880,7 +844,6 @@ public class PredicatesTest extends TestCase {
     assertFalse(isFoobar.apply("Foobarx"));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testContainsPattern_nulls() throws Exception {
     NullPointerTester tester = new NullPointerTester();
@@ -889,7 +852,6 @@ public class PredicatesTest extends TestCase {
     tester.testAllPublicInstanceMethods(isWooString);
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testContains_nulls() throws Exception {
     NullPointerTester tester = new NullPointerTester();
@@ -898,7 +860,6 @@ public class PredicatesTest extends TestCase {
     tester.testAllPublicInstanceMethods(isWooPattern);
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   public void testContainsPattern_serialization() {
     Predicate<CharSequence> pre = Predicates.containsPattern("foo");
@@ -906,7 +867,6 @@ public class PredicatesTest extends TestCase {
     assertEquals(pre.apply("foo"), post.apply("foo"));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // java.util.regex.Pattern
   public void testContains_equals() {
     new EqualsTester()
@@ -938,13 +898,11 @@ public class PredicatesTest extends TestCase {
     assertTrue(Predicates.and(p1, p2).hashCode() != Predicates.or(p1, p2).hashCode());
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // reflection
   public void testNulls() throws Exception {
     new ClassSanityTester().forAllPublicStaticMethods(Predicates.class).testNulls();
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // reflection
   @AndroidIncompatible // TODO(cpovirk): ClassNotFoundException: com.google.common.base.Function
   public void testEqualsAndSerializable() throws Exception {
@@ -999,7 +957,6 @@ public class PredicatesTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // SerializableTester
   private static void checkSerialization(Predicate<? super Integer> predicate) {
     Predicate<? super Integer> reserialized = SerializableTester.reserializeAndAssert(predicate);

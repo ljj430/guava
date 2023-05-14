@@ -21,7 +21,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.testing.EqualsTester;
@@ -37,7 +36,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  *
  * @author Kurt Alfred Kluever
  */
-@ElementTypesAreNonnullByDefault
 @GwtCompatible(emulated = true)
 public final class OptionalTest extends TestCase {
   public void testToJavaUtil_static() {
@@ -320,7 +318,6 @@ public final class OptionalTest extends TestCase {
     Number value = first.or(0.5); // fine
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testNullPointers() {
     NullPointerTester npTester = new NullPointerTester();
