@@ -22,7 +22,6 @@ import com.google.common.primitives.Ints;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Package up sample data for common collections benchmarking.
@@ -112,7 +111,7 @@ class CollectionBenchmarkSampleData {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       return this == obj || (obj instanceof Element && ((Element) obj).hash == hash);
     }
 
@@ -138,7 +137,7 @@ class CollectionBenchmarkSampleData {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       return slowItDown() != 1 && super.equals(obj);
     }
 

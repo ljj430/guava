@@ -23,7 +23,6 @@ import com.google.common.collect.Sets;
 import java.util.Set;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit tests for {@link EqualsTester}.
@@ -303,7 +302,7 @@ public class EqualsTesterTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       if (!(o instanceof ValidTestObject)) {
         return false;
       }
@@ -338,7 +337,7 @@ public class EqualsTesterTest extends TestCase {
 
     @SuppressWarnings("EqualsHashCode")
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       if (!(o instanceof InvalidHashCodeObject)) {
         return false;
       }
@@ -357,7 +356,7 @@ public class EqualsTesterTest extends TestCase {
   private static class NonReflexiveObject {
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       return false;
     }
 
@@ -371,7 +370,7 @@ public class EqualsTesterTest extends TestCase {
   private static class InvalidEqualsNullObject {
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       return o == this || o == null;
     }
 
@@ -385,7 +384,7 @@ public class EqualsTesterTest extends TestCase {
   private static class InvalidEqualsIncompatibleClassObject {
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       return o != null;
     }
 
@@ -414,7 +413,7 @@ public class EqualsTesterTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       if (obj instanceof NamedObject) {
         NamedObject that = (NamedObject) obj;
         return name.equals(that.name) || peerNames.contains(that.name);
@@ -441,7 +440,7 @@ public class EqualsTesterTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       return obj != null && obj.toString().equals(toString());
     }
 

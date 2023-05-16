@@ -32,7 +32,6 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link Sets#synchronizedNavigableSet(NavigableSet)}.
@@ -52,7 +51,7 @@ public class SynchronizedNavigableSetTest extends TestCase {
 
   static class TestSet<E> extends SynchronizedSetTest.TestSet<E> implements NavigableSet<E> {
 
-    TestSet(NavigableSet<E> delegate, @Nullable Object mutex) {
+    TestSet(NavigableSet<E> delegate, Object mutex) {
       super(delegate, mutex);
     }
 

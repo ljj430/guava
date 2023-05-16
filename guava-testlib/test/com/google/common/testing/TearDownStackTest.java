@@ -20,7 +20,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.annotations.GwtCompatible;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /** @author Luiz-Otavio "Z" Zorzella */
 @GwtCompatible
@@ -147,7 +146,7 @@ public class TearDownStackTest extends TestCase {
   private static final class SimpleTearDown implements TearDown {
 
     boolean ran = false;
-    @Nullable Callback callback = null;
+    Callback callback = null;
 
     public SimpleTearDown() {}
 

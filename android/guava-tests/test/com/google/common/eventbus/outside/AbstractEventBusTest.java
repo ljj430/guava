@@ -18,7 +18,6 @@ package com.google.common.eventbus.outside;
 
 import com.google.common.eventbus.EventBus;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Abstract base class for tests that EventBus finds the correct subscribers.
@@ -35,7 +34,7 @@ abstract class AbstractEventBusTest<H> extends TestCase {
 
   abstract H createSubscriber();
 
-  private @Nullable H subscriber;
+  private H subscriber;
 
   H getSubscriber() {
     return subscriber;

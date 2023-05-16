@@ -28,7 +28,6 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -423,9 +422,9 @@ public final class ValueGraphTest {
     for (int i = 0; i < threadCount; i++) {
       futures.add(
           executor.submit(
-              new Callable<@Nullable Void>() {
+              new Callable<Object>() {
                 @Override
-                public @Nullable Void call() throws Exception {
+                public Object call() throws Exception {
                   barrier.await();
                   Integer first = graph.nodes().iterator().next();
                   for (Integer node : graph.nodes()) {

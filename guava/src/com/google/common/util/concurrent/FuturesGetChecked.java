@@ -258,8 +258,12 @@ final class FuturesGetChecked {
   private static final Ordering<Constructor<?>> WITH_STRING_PARAM_FIRST =
       Ordering.natural()
           .onResultOf(
-              (Function<Constructor<?>, Boolean>)
-                  input -> asList(input.getParameterTypes()).contains(String.class))
+              new Function<Constructor<?>, Boolean>() {
+                @Override
+                public Boolean apply(Constructor<?> input) {
+                  return asList(input.getParameterTypes()).contains(String.class);
+                }
+              })
           .reverse();
 
   @CheckForNull

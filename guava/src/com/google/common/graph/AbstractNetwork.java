@@ -23,6 +23,7 @@ import static com.google.common.graph.GraphConstants.MULTIPLE_EDGES_CONNECTING;
 import static java.util.Collections.unmodifiableSet;
 
 import com.google.common.annotations.Beta;
+import com.google.common.base.Function;
 import com.google.common.base.Predicate;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterators;
@@ -71,7 +72,13 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
           @Override
           public Iterator<EndpointPair<N>> iterator() {
             return Iterators.transform(
-                AbstractNetwork.this.edges().iterator(), edge -> incidentNodes(edge));
+                AbstractNetwork.this.edges().iterator(),
+                new Function<E, EndpointPair<N>>() {
+                  @Override
+                  public EndpointPair<N> apply(E edge) {
+                    return incidentNodes(edge);
+                  }
+                });
           }
 
           @Override
@@ -285,6 +292,13 @@ public abstract class AbstractNetwork<N, E> implements Network<N, E> {
   }
 
   private static <N, E> Map<E, EndpointPair<N>> edgeIncidentNodesMap(final Network<N, E> network) {
-    return Maps.asMap(network.edges(), network::incidentNodes);
+    Function<E, EndpointPair<N>> edgeToIncidentNodesFn =
+        new Function<E, EndpointPair<N>>() {
+          @Override
+          public EndpointPair<N> apply(E edge) {
+            return network.incidentNodes(edge);
+          }
+        };
+    return Maps.asMap(network.edges(), edgeToIncidentNodesFn);
   }
 }

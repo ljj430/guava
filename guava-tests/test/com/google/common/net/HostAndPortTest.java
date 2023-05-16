@@ -20,7 +20,6 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.testing.EqualsTester;
 import com.google.common.testing.SerializableTester;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link HostAndPort}
@@ -110,7 +109,7 @@ public class HostAndPortTest extends TestCase {
   private static void checkFromStringCase(
       String hpString,
       int defaultPort,
-      @Nullable String expectHost,
+      String expectHost,
       int expectPort,
       boolean expectHasExplicitPort) {
     HostAndPort hp;

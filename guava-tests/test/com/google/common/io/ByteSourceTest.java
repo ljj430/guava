@@ -40,7 +40,6 @@ import java.io.OutputStream;
 import java.util.Arrays;
 import java.util.EnumSet;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for the default implementations of {@code ByteSource} methods.
@@ -152,8 +151,8 @@ public class ByteSourceTest extends IoTestCase {
   }
 
   public void testRead_withProcessor_stopsOnFalse() throws IOException {
-    ByteProcessor<@Nullable Void> processor =
-        new ByteProcessor<@Nullable Void>() {
+    ByteProcessor<Void> processor =
+        new ByteProcessor<Void>() {
           boolean firstCall = true;
 
           @Override
@@ -164,7 +163,7 @@ public class ByteSourceTest extends IoTestCase {
           }
 
           @Override
-          public @Nullable Void getResult() {
+          public Void getResult() {
             return null;
           }
         };

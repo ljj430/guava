@@ -16,7 +16,6 @@
 
 package com.google.common.collect.testing;
 
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Ignore;
 
 /** Support class added to a suite as part of {@link FeatureSpecificTestSuiteBuilderTest}. */
@@ -29,7 +28,7 @@ import org.junit.Ignore;
  */
 @SuppressWarnings("JUnit4ClassUsedInJUnit3")
 @Ignore
-public final class MyTester extends AbstractTester<@Nullable Void> {
+public final class MyTester extends AbstractTester<Void> {
   static int timesTestClassWasRun = 0;
 
   public void testNothing() {

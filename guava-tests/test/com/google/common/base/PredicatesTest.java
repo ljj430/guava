@@ -36,7 +36,6 @@ import java.util.List;
 import java.util.regex.Pattern;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link Predicates}.
@@ -70,7 +69,7 @@ public class PredicatesTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       return obj instanceof IsOdd;
     }
 

@@ -31,7 +31,6 @@ import java.util.Arrays;
 import java.util.List;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link Preconditions}.
@@ -463,8 +462,7 @@ public class PreconditionsTest extends TestCase {
    * @param sig The method signature
    */
   @GwtIncompatible("ArbitraryInstances")
-  private Object[] getParametersForSignature(
-      @Nullable Object firstParam, ImmutableList<Class<?>> sig) {
+  private Object[] getParametersForSignature(Object firstParam, ImmutableList<Class<?>> sig) {
     Object[] params = new Object[sig.size()];
     params[0] = firstParam;
     if (params.length > 1) {

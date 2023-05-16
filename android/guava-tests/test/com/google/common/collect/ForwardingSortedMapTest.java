@@ -36,7 +36,6 @@ import java.util.SortedMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@code ForwardingSortedMap}.
@@ -77,7 +76,7 @@ public class ForwardingSortedMapTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
       return standardEquals(object);
     }
 
