@@ -1067,6 +1067,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of ListMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, List<V>> asMap(
@@ -1080,6 +1081,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of SetMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, Set<V>> asMap(
@@ -1093,6 +1095,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of SortedSetMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, SortedSet<V>> asMap(
@@ -1106,6 +1109,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   public static <K extends @Nullable Object, V extends @Nullable Object>
       Map<K, Collection<V>> asMap(Multimap<K, V> multimap) {
     return multimap.asMap();

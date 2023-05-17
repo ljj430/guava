@@ -753,6 +753,7 @@ public final class Doubles extends DoublesMethodsForWeb {
    * @throws NullPointerException if {@code string} is {@code null}
    * @since 14.0
    */
+  @Beta
   @GwtIncompatible // regular expressions
   @CheckForNull
   public static Double tryParse(String string) {
