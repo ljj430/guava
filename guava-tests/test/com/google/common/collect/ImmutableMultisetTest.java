@@ -47,7 +47,6 @@ import java.util.stream.Collector;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link ImmutableMultiset}.
@@ -355,11 +354,11 @@ public class ImmutableMultisetTest extends TestCase {
       }
 
       @Override
-      public boolean equals(@Nullable Object obj) {
+      public boolean equals(Object obj) {
         return obj instanceof TypeWithDuplicates && ((TypeWithDuplicates) obj).a == a;
       }
 
-      public boolean fullEquals(@Nullable TypeWithDuplicates other) {
+      public boolean fullEquals(TypeWithDuplicates other) {
         return other != null && a == other.a && b == other.b;
       }
     }

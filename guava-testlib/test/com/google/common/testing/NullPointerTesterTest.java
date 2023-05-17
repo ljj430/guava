@@ -56,7 +56,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @author Mick Killianey
  */
 @SuppressWarnings("CheckReturnValue")
-@AndroidIncompatible // NullPointerTester refuses to run for c.g.c under Android
+@AndroidIncompatible // Android doesn't support the type-use annotations it needs
 public class NullPointerTesterTest extends TestCase {
 
   /** Non-NPE RuntimeException. */
@@ -385,7 +385,7 @@ public class NullPointerTesterTest extends TestCase {
     }
 
     /** Method that decides how to react to parameters. */
-    public void reactToNullParameters(@Nullable Object first, @Nullable Object second) {
+    public void reactToNullParameters(Object first, Object second) {
       if (first == null) {
         actionWhenFirstParamIsNull.act();
       }
@@ -1447,7 +1447,7 @@ public class NullPointerTesterTest extends TestCase {
   static class OverridesEquals {
     @SuppressWarnings("EqualsHashCode")
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       return true;
     }
   }

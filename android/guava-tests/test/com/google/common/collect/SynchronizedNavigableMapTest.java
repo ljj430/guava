@@ -33,7 +33,6 @@ import java.util.NavigableMap;
 import java.util.NavigableSet;
 import java.util.SortedMap;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link Maps#synchronizedNavigableMap(NavigableMap)}.
@@ -66,7 +65,7 @@ public class SynchronizedNavigableMapTest extends SynchronizedMapTest {
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(object);
     }

@@ -833,7 +833,7 @@ public class OrderingTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object other) {
+    public boolean equals(Object other) {
       return other instanceof NumberOrdering;
     }
 

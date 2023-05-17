@@ -40,7 +40,6 @@ import java.util.NoSuchElementException;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link Collections2}.
@@ -201,10 +200,10 @@ public class Collections2Test extends TestCase {
         .createTestSuite();
   }
 
-  private static final Function<@Nullable String, @Nullable String> REMOVE_FIRST_CHAR =
-      new Function<@Nullable String, @Nullable String>() {
+  private static final Function<String, String> REMOVE_FIRST_CHAR =
+      new Function<String, String>() {
         @Override
-        public @Nullable String apply(@Nullable String from) {
+        public String apply(String from) {
           return ((from == null) || "".equals(from)) ? null : from.substring(1);
         }
       };
@@ -214,8 +213,8 @@ public class Collections2Test extends TestCase {
     return CollectionTestSuiteBuilder.using(
             new TestStringCollectionGenerator() {
               @Override
-              public Collection<@Nullable String> create(@Nullable String[] elements) {
-                List<@Nullable String> list = newArrayList();
+              public Collection<String> create(String[] elements) {
+                List<String> list = newArrayList();
                 for (String element : elements) {
                   list.add((element == null) ? null : "q" + element);
                 }

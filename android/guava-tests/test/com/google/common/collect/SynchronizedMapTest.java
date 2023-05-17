@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@code Synchronized#map}.
@@ -132,7 +131,7 @@ public class SynchronizedMapTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       assertTrue(Thread.holdsLock(mutex));
       return super.equals(obj);
     }

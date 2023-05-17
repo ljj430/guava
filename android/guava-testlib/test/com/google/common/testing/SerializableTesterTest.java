@@ -19,7 +19,6 @@ package com.google.common.testing;
 import java.io.Serializable;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link SerializableTester}.
@@ -83,7 +82,7 @@ public class SerializableTesterTest extends TestCase {
 
     @SuppressWarnings("EqualsHashCode")
     @Override
-    public boolean equals(@Nullable Object other) {
+    public boolean equals(Object other) {
       return (other instanceof ClassWhichIsAlwaysEqualButHasDifferentHashcodes);
     }
   }
@@ -92,7 +91,7 @@ public class SerializableTesterTest extends TestCase {
     private static final long serialVersionUID = 1L;
 
     @Override
-    public boolean equals(@Nullable Object other) {
+    public boolean equals(Object other) {
       return (other instanceof ObjectWhichIsEqualButChangesClass || other instanceof OtherForm);
     }
 
@@ -107,7 +106,7 @@ public class SerializableTesterTest extends TestCase {
 
     private static class OtherForm implements Serializable {
       @Override
-      public boolean equals(@Nullable Object other) {
+      public boolean equals(Object other) {
         return (other instanceof ObjectWhichIsEqualButChangesClass || other instanceof OtherForm);
       }
 

@@ -21,6 +21,7 @@ import static com.google.common.util.concurrent.MoreExecutors.directExecutor;
 import static com.google.common.util.concurrent.Uninterruptibles.getUninterruptibly;
 import static java.util.Objects.requireNonNull;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.J2ktIncompatible;
@@ -249,12 +250,16 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
       TimeUnit timeUnit,
       ScheduledExecutorService executorService) {
     TrustedListenableFutureTask<O> task = TrustedListenableFutureTask.create(callable);
-    Future<?> scheduled = executorService.schedule(task, delay, timeUnit);
-    /*
-     * Even when the user interrupts the task, we pass `false` to `cancel` so that we don't
-     * interrupt a second time after the interruption performed by TrustedListenableFutureTask.
-     */
-    task.addListener(() -> scheduled.cancel(false), directExecutor());
+    final Future<?> scheduled = executorService.schedule(task, delay, timeUnit);
+    task.addListener(
+        new Runnable() {
+          @Override
+          public void run() {
+            // Don't want to interrupt twice
+            scheduled.cancel(false);
+          }
+        },
+        directExecutor());
     return task;
   }
 
@@ -294,6 +299,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @param executor the executor that runs {@code fallback} if {@code input} fails
    * @since 19.0
    */
+  @Beta
   @J2ktIncompatible
   @Partially.GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V extends @Nullable Object, X extends Throwable> ListenableFuture<V> catching(
@@ -359,6 +365,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @param executor the executor that runs {@code fallback} if {@code input} fails
    * @since 19.0 (similar functionality in 14.0 as {@code withFallback})
    */
+  @Beta
   @J2ktIncompatible
   @Partially.GwtIncompatible("AVAILABLE but requires exceptionType to be Throwable.class")
   public static <V extends @Nullable Object, X extends Throwable> ListenableFuture<V> catchingAsync(
@@ -380,6 +387,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @param scheduledExecutor The executor service to enforce the timeout.
    * @since 28.0
    */
+  @Beta
   @J2ktIncompatible
   @GwtIncompatible // java.util.concurrent.ScheduledExecutorService
   public static <V extends @Nullable Object> ListenableFuture<V> withTimeout(
@@ -399,6 +407,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @param scheduledExecutor The executor service to enforce the timeout.
    * @since 19.0
    */
+  @Beta
   @J2ktIncompatible
   @GwtIncompatible // java.util.concurrent.ScheduledExecutorService
   @SuppressWarnings("GoodTime") // should accept a java.time.Duration
@@ -445,6 +454,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *     input's failure (if not)
    * @since 19.0 (in 11.0 as {@code transform})
    */
+  @Beta
   public static <I extends @Nullable Object, O extends @Nullable Object>
       ListenableFuture<O> transformAsync(
           ListenableFuture<I> input,
@@ -482,6 +492,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return A future that holds result of the transformation.
    * @since 9.0 (in 2.0 as {@code compose})
    */
+  @Beta
   public static <I extends @Nullable Object, O extends @Nullable Object>
       ListenableFuture<O> transform(
           ListenableFuture<I> input, Function<? super I, ? extends O> function, Executor executor) {
@@ -508,6 +519,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return A future that returns the result of the transformation.
    * @since 10.0
    */
+  @Beta
   @J2ktIncompatible
   @GwtIncompatible // TODO
   public static <I extends @Nullable Object, O extends @Nullable Object> Future<O> lazyTransform(
@@ -568,6 +580,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return a future that provides a list of the results of the component futures
    * @since 10.0
    */
+  @Beta
   @SafeVarargs
   public static <V extends @Nullable Object> ListenableFuture<List<V>> allAsList(
       ListenableFuture<? extends V>... futures) {
@@ -595,6 +608,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return a future that provides a list of the results of the component futures
    * @since 10.0
    */
+  @Beta
   public static <V extends @Nullable Object> ListenableFuture<List<V>> allAsList(
       Iterable<? extends ListenableFuture<? extends V>> futures) {
     ListenableFuture<List<@Nullable V>> nullable =
@@ -613,6 +627,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *
    * @since 20.0
    */
+  @Beta
   @SafeVarargs
   public static <V extends @Nullable Object> FutureCombiner<V> whenAllComplete(
       ListenableFuture<? extends V>... futures) {
@@ -627,6 +642,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *
    * @since 20.0
    */
+  @Beta
   public static <V extends @Nullable Object> FutureCombiner<V> whenAllComplete(
       Iterable<? extends ListenableFuture<? extends V>> futures) {
     return new FutureCombiner<V>(false, ImmutableList.copyOf(futures));
@@ -639,6 +655,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *
    * @since 20.0
    */
+  @Beta
   @SafeVarargs
   public static <V extends @Nullable Object> FutureCombiner<V> whenAllSucceed(
       ListenableFuture<? extends V>... futures) {
@@ -652,6 +669,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *
    * @since 20.0
    */
+  @Beta
   public static <V extends @Nullable Object> FutureCombiner<V> whenAllSucceed(
       Iterable<? extends ListenableFuture<? extends V>> futures) {
     return new FutureCombiner<V>(true, ImmutableList.copyOf(futures));
@@ -683,6 +701,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *
    * @since 20.0
    */
+  @Beta
   @GwtCompatible
   public static final class FutureCombiner<V extends @Nullable Object> {
     private final boolean allMustSucceed;
@@ -844,6 +863,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return a future that provides a list of the results of the component futures
    * @since 10.0
    */
+  @Beta
   @SafeVarargs
   public static <V extends @Nullable Object> ListenableFuture<List<@Nullable V>> successfulAsList(
       ListenableFuture<? extends V>... futures) {
@@ -880,6 +900,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    * @return a future that provides a list of the results of the component futures
    * @since 10.0
    */
+  @Beta
   public static <V extends @Nullable Object> ListenableFuture<List<@Nullable V>> successfulAsList(
       Iterable<? extends ListenableFuture<? extends V>> futures) {
     return new ListFuture<V>(ImmutableList.copyOf(futures), false);
@@ -919,7 +940,14 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
     final ImmutableList<AbstractFuture<T>> delegates = delegatesBuilder.build();
     for (int i = 0; i < copy.length; i++) {
       final int localI = i;
-      copy[i].addListener(() -> state.recordInputCompletion(delegates, localI), directExecutor());
+      copy[i].addListener(
+          new Runnable() {
+            @Override
+            public void run() {
+              state.recordInputCompletion(delegates, localI);
+            }
+          },
+          directExecutor());
     }
 
     @SuppressWarnings("unchecked")
@@ -1218,6 +1246,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *     does not have a suitable constructor
    * @since 19.0 (in 10.0 as {@code get})
    */
+  @Beta
   @CanIgnoreReturnValue
   @J2ktIncompatible
   @GwtIncompatible // reflection
@@ -1270,6 +1299,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *     does not have a suitable constructor
    * @since 28.0
    */
+  @Beta
   @CanIgnoreReturnValue
   @J2ktIncompatible
   @GwtIncompatible // reflection
@@ -1322,6 +1352,7 @@ public final class Futures extends GwtFuturesCatchingSpecialization {
    *     does not have a suitable constructor
    * @since 19.0 (in 10.0 as {@code get} and with different parameter order)
    */
+  @Beta
   @CanIgnoreReturnValue
   @J2ktIncompatible
   @GwtIncompatible // reflection
