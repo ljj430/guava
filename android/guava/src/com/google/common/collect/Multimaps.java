@@ -22,6 +22,7 @@ import static com.google.common.collect.CollectPreconditions.checkRemove;
 import static com.google.common.collect.NullnessCasts.uncheckedCastNullableTToT;
 import static java.util.Objects.requireNonNull;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.J2ktIncompatible;
@@ -962,6 +963,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of ListMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, List<V>> asMap(
@@ -975,6 +977,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of SetMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, Set<V>> asMap(
@@ -988,6 +991,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   @SuppressWarnings("unchecked")
   // safe by specification of SortedSetMultimap.asMap()
   public static <K extends @Nullable Object, V extends @Nullable Object> Map<K, SortedSet<V>> asMap(
@@ -1001,6 +1005,7 @@ public final class Multimaps {
    *
    * @since 15.0
    */
+  @Beta
   public static <K extends @Nullable Object, V extends @Nullable Object>
       Map<K, Collection<V>> asMap(Multimap<K, V> multimap) {
     return multimap.asMap();
