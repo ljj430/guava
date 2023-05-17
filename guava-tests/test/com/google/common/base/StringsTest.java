@@ -20,7 +20,6 @@ import static com.google.common.truth.Truth.assertThat;
 
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.testing.NullPointerTester;
 import junit.framework.TestCase;
 
@@ -29,7 +28,6 @@ import junit.framework.TestCase;
  *
  * @author Kevin Bourrillion
  */
-@ElementTypesAreNonnullByDefault
 @GwtCompatible(emulated = true)
 public class StringsTest extends TestCase {
   public void testNullToEmpty() {
@@ -235,7 +233,6 @@ public class StringsTest extends TestCase {
     assertEquals("(Object[])null", Strings.lenientFormat("%s", (Object[]) null));
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // GWT reflection includes less data
   public void testLenientFormat_badArgumentToString() {
     assertThat(Strings.lenientFormat("boiler %s plate", new ThrowsOnToString()))
@@ -256,7 +253,6 @@ public class StringsTest extends TestCase {
     }
   }
 
-  @J2ktIncompatible
   @GwtIncompatible // NullPointerTester
   public void testNullPointers() {
     NullPointerTester tester = new NullPointerTester();

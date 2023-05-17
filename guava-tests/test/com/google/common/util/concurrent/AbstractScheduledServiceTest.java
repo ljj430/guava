@@ -43,7 +43,6 @@ import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link AbstractScheduledService}.
@@ -53,7 +52,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 public class AbstractScheduledServiceTest extends TestCase {
 
   volatile Scheduler configuration = newFixedDelaySchedule(0, 10, MILLISECONDS);
-  volatile @Nullable ScheduledFuture<?> future = null;
+  volatile ScheduledFuture<?> future = null;
 
   volatile boolean atFixedRateCalled = false;
   volatile boolean withFixedDelayCalled = false;
@@ -314,9 +313,9 @@ public class AbstractScheduledServiceTest extends TestCase {
     AtomicInteger numberOfTimesRunCalled = new AtomicInteger(0);
     AtomicInteger numberOfTimesExecutorCalled = new AtomicInteger(0);
     AtomicInteger numberOfTimesSchedulerCalled = new AtomicInteger(0);
-    volatile @Nullable Exception runException = null;
-    volatile @Nullable Exception startUpException = null;
-    volatile @Nullable Exception shutDownException = null;
+    volatile Exception runException = null;
+    volatile Exception startUpException = null;
+    volatile Exception shutDownException = null;
 
     @Override
     protected void runOneIteration() throws Exception {

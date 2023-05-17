@@ -23,7 +23,6 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.LockSupport;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 public final class InterruptibleTaskTest extends TestCase {
 
@@ -31,10 +30,10 @@ public final class InterruptibleTaskTest extends TestCase {
   // transition to DONE
   public void testInterruptThrows() throws Exception {
     final CountDownLatch isInterruptibleRegistered = new CountDownLatch(1);
-    InterruptibleTask<@Nullable Void> task =
-        new InterruptibleTask<@Nullable Void>() {
+    InterruptibleTask<Void> task =
+        new InterruptibleTask<Void>() {
           @Override
-          @Nullable Void runInterruptibly() throws Exception {
+          Void runInterruptibly() throws Exception {
             BrokenChannel bc = new BrokenChannel();
             bc.doBegin();
             isInterruptibleRegistered.countDown();
@@ -53,7 +52,7 @@ public final class InterruptibleTaskTest extends TestCase {
           }
 
           @Override
-          void afterRanInterruptiblySuccess(@Nullable Void result) {}
+          void afterRanInterruptiblySuccess(Void result) {}
 
           @Override
           void afterRanInterruptiblyFailure(Throwable error) {}
@@ -101,10 +100,10 @@ public final class InterruptibleTaskTest extends TestCase {
   public void testInterruptIsSlow() throws Exception {
     final CountDownLatch isInterruptibleRegistered = new CountDownLatch(1);
     final SlowChannel slowChannel = new SlowChannel();
-    final InterruptibleTask<@Nullable Void> task =
-        new InterruptibleTask<@Nullable Void>() {
+    final InterruptibleTask<Void> task =
+        new InterruptibleTask<Void>() {
           @Override
-          @Nullable Void runInterruptibly() throws Exception {
+          Void runInterruptibly() throws Exception {
             slowChannel.doBegin();
             isInterruptibleRegistered.countDown();
             try {
@@ -127,7 +126,7 @@ public final class InterruptibleTaskTest extends TestCase {
           }
 
           @Override
-          void afterRanInterruptiblySuccess(@Nullable Void result) {}
+          void afterRanInterruptiblySuccess(Void result) {}
 
           @Override
           void afterRanInterruptiblyFailure(Throwable error) {}

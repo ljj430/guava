@@ -19,7 +19,6 @@ package com.google.common.testing;
 import static com.google.common.base.Preconditions.checkArgument;
 
 import com.google.common.annotations.GwtIncompatible;
-import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Charsets;
 import com.google.common.base.Defaults;
@@ -143,7 +142,7 @@ import java.util.logging.Logger;
 import java.util.regex.MatchResult;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import org.checkerframework.checker.nullness.qual.Nullable;
+import javax.annotation.CheckForNull;
 
 /**
  * Supplies an arbitrary "default" instance for a wide range of types, often useful in testing
@@ -168,8 +167,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 12.0
  */
 @GwtIncompatible
-@J2ktIncompatible
-@ElementTypesAreNonnullByDefault
 public final class ArbitraryInstances {
 
   private static final Ordering<Field> BY_FIELD_NAME =
@@ -329,7 +326,8 @@ public final class ArbitraryInstances {
   }
 
   @SuppressWarnings("unchecked") // it's a subtype map
-  private static <T> @Nullable Class<? extends T> getImplementation(Class<T> type) {
+  @CheckForNull
+  private static <T> Class<? extends T> getImplementation(Class<T> type) {
     return (Class<? extends T>) implementations.get(type);
   }
 
@@ -339,7 +337,8 @@ public final class ArbitraryInstances {
    * Returns an arbitrary instance for {@code type}, or {@code null} if no arbitrary instance can be
    * determined.
    */
-  public static <T> @Nullable T get(Class<T> type) {
+  @CheckForNull
+  public static <T> T get(Class<T> type) {
     T defaultValue = DEFAULTS.getInstance(type);
     if (defaultValue != null) {
       return defaultValue;
@@ -350,7 +349,7 @@ public final class ArbitraryInstances {
     }
     if (type.isEnum()) {
       T[] enumConstants = type.getEnumConstants();
-      return (enumConstants == null || enumConstants.length == 0) ? null : enumConstants[0];
+      return (enumConstants.length == 0) ? null : enumConstants[0];
     }
     if (type.isArray()) {
       return createEmptyArray(type);
@@ -386,7 +385,8 @@ public final class ArbitraryInstances {
     }
   }
 
-  private static <T> @Nullable T arbitraryConstantInstanceOrNull(Class<T> type) {
+  @CheckForNull
+  private static <T> T arbitraryConstantInstanceOrNull(Class<T> type) {
     Field[] fields = type.getDeclaredFields();
     Arrays.sort(fields, BY_FIELD_NAME);
     for (Field field : fields) {
@@ -497,12 +497,11 @@ public final class ArbitraryInstances {
   }
 
   // Always equal is a valid total ordering. And it works for any Object.
-  private static final class AlwaysEqual extends Ordering<@Nullable Object>
-      implements Serializable {
+  private static final class AlwaysEqual extends Ordering<Object> implements Serializable {
     private static final AlwaysEqual INSTANCE = new AlwaysEqual();
 
     @Override
-    public int compare(@Nullable Object o1, @Nullable Object o2) {
+    public int compare(Object o1, Object o2) {
       return 0;
     }
 

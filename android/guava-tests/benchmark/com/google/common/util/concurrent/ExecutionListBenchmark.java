@@ -440,7 +440,7 @@ public class ExecutionListBenchmark {
     static final Logger log = Logger.getLogger(NewExecutionListWithoutReverse.class.getName());
 
     @GuardedBy("this")
-    private @Nullable RunnableExecutorPair runnables;
+    private RunnableExecutorPair runnables;
 
     @GuardedBy("this")
     private boolean executed;
@@ -504,10 +504,10 @@ public class ExecutionListBenchmark {
     static final Logger log = Logger.getLogger(NewExecutionListQueue.class.getName());
 
     @GuardedBy("this")
-    private @Nullable RunnableExecutorPair head;
+    private RunnableExecutorPair head;
 
     @GuardedBy("this")
-    private @Nullable RunnableExecutorPair tail;
+    private RunnableExecutorPair tail;
 
     @GuardedBy("this")
     private boolean executed;
@@ -671,7 +671,7 @@ public class ExecutionListBenchmark {
       // Volatile because this is written on one thread and read on another with no synchronization.
       @Nullable volatile RunnableExecutorPair next;
 
-      RunnableExecutorPair(@Nullable Runnable runnable, @Nullable Executor executor) {
+      RunnableExecutorPair(Runnable runnable, Executor executor) {
         this.runnable = runnable;
         this.executor = executor;
       }

@@ -47,7 +47,6 @@ import java.util.Set;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link ForwardingMap}.
@@ -84,12 +83,12 @@ public class ForwardingMapTest extends TestCase {
     }
 
     @Override
-    public @Nullable V remove(Object object) {
+    public V remove(Object object) {
       return standardRemove(object);
     }
 
     @Override
-    public boolean equals(@Nullable Object object) {
+    public boolean equals(Object object) {
       return standardEquals(object);
     }
 
@@ -336,7 +335,7 @@ public class ForwardingMapTest extends TestCase {
           "java.util.function.Consumer", "accept",
           "java.util.function.IntFunction", "apply");
 
-  private static @Nullable Object getDefaultValue(final TypeToken<?> type) {
+  private static Object getDefaultValue(final TypeToken<?> type) {
     Class<?> rawType = type.getRawType();
     Object defaultValue = ArbitraryInstances.get(rawType);
     if (defaultValue != null) {

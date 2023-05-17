@@ -21,6 +21,7 @@ import static com.google.common.graph.GraphConstants.NODE_NOT_IN_GRAPH;
 import static java.util.Objects.requireNonNull;
 
 import com.google.common.annotations.Beta;
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
@@ -288,7 +289,12 @@ public final class Graphs {
         public Iterator<EndpointPair<N>> iterator() {
           return Iterators.transform(
               delegate().incidentEdges(node).iterator(),
-              edge -> EndpointPair.of(delegate(), edge.nodeV(), edge.nodeU()));
+              new Function<EndpointPair<N>, EndpointPair<N>>() {
+                @Override
+                public EndpointPair<N> apply(EndpointPair<N> edge) {
+                  return EndpointPair.of(delegate(), edge.nodeV(), edge.nodeU());
+                }
+              });
         }
       };
     }

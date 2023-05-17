@@ -20,7 +20,6 @@ import com.google.common.annotations.GwtCompatible;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * An implementation of {@code Iterable} which throws an exception on all invocations of the {@link
@@ -64,7 +63,7 @@ public final class MinimalIterable<E> implements Iterable<E> {
     return (MinimalIterable) of(elements.toArray());
   }
 
-  private @Nullable Iterator<E> iterator;
+  private Iterator<E> iterator;
 
   private MinimalIterable(Iterator<E> iterator) {
     this.iterator = iterator;

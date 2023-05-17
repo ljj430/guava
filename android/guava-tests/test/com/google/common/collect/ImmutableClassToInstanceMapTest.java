@@ -33,7 +33,6 @@ import java.util.Map.Entry;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link ImmutableClassToInstanceMap}.
@@ -214,7 +213,7 @@ public class ImmutableClassToInstanceMapTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       return obj instanceof Impl && value == ((Impl) obj).value;
     }
 

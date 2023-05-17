@@ -30,7 +30,6 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Comparator;
 import javax.lang.model.element.Modifier;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tester of subtyping relationships between two types.
@@ -79,7 +78,7 @@ abstract class SubtypeTester implements Cloneable {
     boolean suppressGetSupertype() default false;
   }
 
-  private @Nullable Method method = null;
+  private Method method = null;
 
   /** Call this in a {@link TestSubtype} public method asserting subtype relationship. */
   final <T> T isSubtype(T sub) {
@@ -106,7 +105,7 @@ abstract class SubtypeTester implements Cloneable {
    * Call this in a {@link TestSubtype} public method asserting that subtype relationship does not
    * hold.
    */
-  final <X> @Nullable X notSubtype(@SuppressWarnings("unused") Object sub) {
+  final <X> X notSubtype(@SuppressWarnings("unused") Object sub) {
     Type returnType = method.getGenericReturnType();
     Type paramType = getOnlyParameterType();
     TestSubtype spec = method.getAnnotation(TestSubtype.class);

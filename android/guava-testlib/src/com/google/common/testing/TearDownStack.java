@@ -38,7 +38,6 @@ import java.util.logging.Logger;
  */
 @Beta
 @GwtCompatible
-@ElementTypesAreNonnullByDefault
 public class TearDownStack implements TearDownAccepter {
   private static final Logger logger = Logger.getLogger(TearDownStack.class.getName());
 

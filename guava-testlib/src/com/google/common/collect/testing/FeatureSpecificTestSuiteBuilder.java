@@ -39,7 +39,6 @@ import java.util.logging.Logger;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Creates, based on your criteria, a JUnit test suite that exhaustively tests the object generated
@@ -63,7 +62,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
 
   // Test Data
 
-  private @Nullable G subjectGenerator;
+  private G subjectGenerator;
   // Gets run before every test.
   private Runnable setUp;
   // Gets run at the conclusion of every test.
@@ -126,7 +125,7 @@ public abstract class FeatureSpecificTestSuiteBuilder<
 
   // Name
 
-  private @Nullable String name;
+  private String name;
 
   /** Configures this builder produce a TestSuite with the given name. */
   @CanIgnoreReturnValue

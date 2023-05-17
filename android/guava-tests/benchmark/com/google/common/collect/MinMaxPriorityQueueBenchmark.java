@@ -25,7 +25,6 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
 import java.util.Random;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Benchmarks to compare performance of MinMaxPriorityQueue and PriorityQueue.
@@ -91,7 +90,7 @@ public class MinMaxPriorityQueueBenchmark {
     }
 
     @Override
-    public @Nullable T poll() {
+    public T poll() {
       return mmHeap.pollLast();
     }
   }

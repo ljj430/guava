@@ -217,7 +217,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue // pushed down from class to method
   @Override
-  public @Nullable E poll() {
+  public E poll() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {
@@ -229,7 +229,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue // pushed down from class to method
   @Override
-  public @Nullable E poll(long timeout, TimeUnit unit) throws InterruptedException {
+  public E poll(long timeout, TimeUnit unit) throws InterruptedException {
     final Monitor monitor = this.monitor;
     if (monitor.enterWhen(notEmpty, timeout, unit)) {
       try {
@@ -256,7 +256,7 @@ public class MonitorBasedPriorityBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue // pushed down from class to method
   @Override
-  public @Nullable E peek() {
+  public E peek() {
     final Monitor monitor = this.monitor;
     monitor.enter();
     try {

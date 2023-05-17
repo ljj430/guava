@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.annotations.J2ktIncompatible;
+import com.google.common.base.Supplier;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import com.google.errorprone.annotations.concurrent.GuardedBy;
 import com.google.j2objc.annotations.WeakOuter;
@@ -228,28 +229,33 @@ public abstract class AbstractScheduledService implements Service {
     @Override
     protected final void doStart() {
       executorService =
-          MoreExecutors.renamingDecorator(executor(), () -> serviceName() + " " + state());
+          MoreExecutors.renamingDecorator(
+              executor(),
+              new Supplier<String>() {
+                @Override
+                public String get() {
+                  return serviceName() + " " + state();
+                }
+              });
       executorService.execute(
-          () -> {
-            lock.lock();
-            try {
-              startUp();
-              /*
-               * requireNonNull is safe because executorService is never cleared after the
-               * assignment above.
-               */
-              requireNonNull(executorService);
-              runningTask = scheduler().schedule(delegate, executorService, task);
-              notifyStarted();
-            } catch (Throwable t) {
-              restoreInterruptIfIsInterruptedException(t);
-              notifyFailed(t);
-              if (runningTask != null) {
-                // prevent the task from running if possible
-                runningTask.cancel(false);
+          new Runnable() {
+            @Override
+            public void run() {
+              lock.lock();
+              try {
+                startUp();
+                runningTask = scheduler().schedule(delegate, executorService, task);
+                notifyStarted();
+              } catch (Throwable t) {
+                restoreInterruptIfIsInterruptedException(t);
+                notifyFailed(t);
+                if (runningTask != null) {
+                  // prevent the task from running if possible
+                  runningTask.cancel(false);
+                }
+              } finally {
+                lock.unlock();
               }
-            } finally {
-              lock.unlock();
             }
           });
     }
@@ -261,25 +267,28 @@ public abstract class AbstractScheduledService implements Service {
       requireNonNull(executorService);
       runningTask.cancel(false);
       executorService.execute(
-          () -> {
-            try {
-              lock.lock();
+          new Runnable() {
+            @Override
+            public void run() {
               try {
-                if (state() != State.STOPPING) {
-                  // This means that the state has changed since we were scheduled. This implies
-                  // that an execution of runOneIteration has thrown an exception and we have
-                  // transitioned to a failed state, also this means that shutDown has already
-                  // been called, so we do not want to call it again.
-                  return;
+                lock.lock();
+                try {
+                  if (state() != State.STOPPING) {
+                    // This means that the state has changed since we were scheduled. This implies
+                    // that an execution of runOneIteration has thrown an exception and we have
+                    // transitioned to a failed state, also this means that shutDown has already
+                    // been called, so we do not want to call it again.
+                    return;
+                  }
+                  shutDown();
+                } finally {
+                  lock.unlock();
                 }
-                shutDown();
-              } finally {
-                lock.unlock();
+                notifyStopped();
+              } catch (Throwable t) {
+                restoreInterruptIfIsInterruptedException(t);
+                notifyFailed(t);
               }
-              notifyStopped();
-            } catch (Throwable t) {
-              restoreInterruptIfIsInterruptedException(t);
-              notifyFailed(t);
             }
           });
     }

@@ -45,7 +45,6 @@ import java.util.TreeMap;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link ImmutableSortedMap}.
@@ -718,7 +717,7 @@ public class ImmutableSortedMapTest extends TestCase {
     }
 
     @Override
-    public boolean equals(@Nullable Object o) {
+    public boolean equals(Object o) {
       return (o instanceof IntHolder) && ((IntHolder) o).value == value;
     }
 

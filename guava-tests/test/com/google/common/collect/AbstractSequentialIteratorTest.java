@@ -26,7 +26,6 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /** Tests for {@link AbstractSequentialIterator}. */
 @GwtCompatible(emulated = true)
@@ -61,7 +60,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
             Iterator<Integer> powersOfTwo =
                 new AbstractSequentialIterator<Integer>(1) {
                   @Override
-                  protected @Nullable Integer computeNext(Integer previous) {
+                  protected Integer computeNext(Integer previous) {
                     return (previous == 1 << 30) ? null : previous * 2;
                   }
                 };
@@ -138,7 +137,7 @@ public class AbstractSequentialIteratorTest extends TestCase {
   private static Iterator<Integer> newDoubler(int first, final int last) {
     return new AbstractSequentialIterator<Integer>(first) {
       @Override
-      protected @Nullable Integer computeNext(Integer previous) {
+      protected Integer computeNext(Integer previous) {
         return (previous == last) ? null : previous * 2;
       }
     };

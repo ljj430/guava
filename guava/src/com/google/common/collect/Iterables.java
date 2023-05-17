@@ -1074,9 +1074,21 @@ public final class Iterables {
           @Override
           public Iterator<T> iterator() {
             return Iterators.mergeSorted(
-                Iterables.transform(iterables, Iterable::iterator), comparator);
+                Iterables.transform(iterables, Iterables.<T>toIterator()), comparator);
           }
         };
     return new UnmodifiableIterable<>(iterable);
+  }
+
+  // TODO(user): Is this the best place for this? Move to fluent functions?
+  // Useful as a public method?
+  static <T extends @Nullable Object>
+      Function<Iterable<? extends T>, Iterator<? extends T>> toIterator() {
+    return new Function<Iterable<? extends T>, Iterator<? extends T>>() {
+      @Override
+      public Iterator<? extends T> apply(Iterable<? extends T> iterable) {
+        return iterable.iterator();
+      }
+    };
   }
 }

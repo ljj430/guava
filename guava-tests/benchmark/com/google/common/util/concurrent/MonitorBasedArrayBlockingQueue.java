@@ -290,7 +290,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue
   @Override
-  public @Nullable E poll() {
+  public E poll() {
     final Monitor monitor = this.monitor;
     if (monitor.enterIf(notEmpty)) {
       try {
@@ -305,7 +305,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue
   @Override
-  public @Nullable E poll(long timeout, TimeUnit unit) throws InterruptedException {
+  public E poll(long timeout, TimeUnit unit) throws InterruptedException {
     final Monitor monitor = this.monitor;
     if (monitor.enterWhen(notEmpty, timeout, unit)) {
       try {
@@ -332,7 +332,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
 
   @CanIgnoreReturnValue
   @Override
-  public @Nullable E peek() {
+  public E peek() {
     final Monitor monitor = this.monitor;
     if (monitor.enterIf(notEmpty)) {
       try {
@@ -672,7 +672,7 @@ public class MonitorBasedArrayBlockingQueue<E> extends AbstractQueue<E>
      * we must return it in the following next() call even if it was in the process of being removed
      * when hasNext() was called.
      */
-    private @Nullable E nextItem;
+    private E nextItem;
 
     /**
      * Index of element returned by most recent call to next. Reset to -1 if this element is deleted

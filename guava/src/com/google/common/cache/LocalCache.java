@@ -4023,6 +4023,8 @@ class LocalCache<K, V> extends AbstractMap<K, V> implements ConcurrentMap<K, V> 
     return value;
   }
 
+  // Only becomes available in Java 8 when it's on the interface.
+  // @Override
   @Override
   @CheckForNull
   public V getOrDefault(@CheckForNull Object key, @CheckForNull V defaultValue) {
