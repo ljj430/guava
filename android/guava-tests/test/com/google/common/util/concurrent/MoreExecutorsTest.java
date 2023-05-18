@@ -72,7 +72,6 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
-import org.checkerframework.checker.nullness.qual.Nullable;
 import org.mockito.InOrder;
 import org.mockito.Mockito;
 
@@ -186,9 +185,9 @@ public class MoreExecutorsTest extends JSR166TestCase {
                 try {
                   Future<?> future =
                       executor.submit(
-                          new Callable<@Nullable Void>() {
+                          new Callable<Void>() {
                             @Override
-                            public @Nullable Void call() throws Exception {
+                            public Void call() throws Exception {
                               // WAIT #1
                               barrier.await(1, TimeUnit.SECONDS);
 

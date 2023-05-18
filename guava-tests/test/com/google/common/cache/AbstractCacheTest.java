@@ -24,7 +24,6 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link AbstractCache}.
@@ -38,7 +37,7 @@ public class AbstractCacheTest extends TestCase {
     Cache<Object, Object> cache =
         new AbstractCache<Object, Object>() {
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return valueRef.get();
           }
         };
@@ -54,7 +53,7 @@ public class AbstractCacheTest extends TestCase {
     Cache<Object, Object> cache =
         new AbstractCache<Object, Object>() {
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return null;
           }
         };
@@ -68,7 +67,7 @@ public class AbstractCacheTest extends TestCase {
     Cache<Object, Object> cache =
         new AbstractCache<Object, Object>() {
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return cachedKey.equals(key) ? cachedValue : null;
           }
         };

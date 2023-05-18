@@ -38,6 +38,7 @@ import static java.util.logging.Level.WARNING;
 
 import com.google.common.annotations.J2ktIncompatible;
 import com.google.common.annotations.VisibleForTesting;
+import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 import com.google.common.util.concurrent.ClosingFuture.Combiner.AsyncCombiningCallable;
@@ -1379,11 +1380,16 @@ public final class ClosingFuture<V extends @Nullable Object> {
           : Futures.whenAllComplete(inputFutures());
     }
 
+    private static final Function<ClosingFuture<?>, FluentFuture<?>> INNER_FUTURE =
+        new Function<ClosingFuture<?>, FluentFuture<?>>() {
+          @Override
+          public FluentFuture<?> apply(ClosingFuture<?> future) {
+            return future.future;
+          }
+        };
 
     private ImmutableList<FluentFuture<?>> inputFutures() {
-      return FluentIterable.from(inputs)
-          .<FluentFuture<?>>transform(future -> future.future)
-          .toList();
+      return FluentIterable.from(inputs).transform(INNER_FUTURE).toList();
     }
   }
 
@@ -2142,11 +2148,14 @@ public final class ClosingFuture<V extends @Nullable Object> {
     }
     try {
       executor.execute(
-          () -> {
-            try {
-              closeable.close();
-            } catch (IOException | RuntimeException e) {
-              logger.log(WARNING, "thrown by close()", e);
+          new Runnable() {
+            @Override
+            public void run() {
+              try {
+                closeable.close();
+              } catch (IOException | RuntimeException e) {
+                logger.log(WARNING, "thrown by close()", e);
+              }
             }
           });
     } catch (RejectedExecutionException e) {

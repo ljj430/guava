@@ -22,6 +22,11 @@ import com.google.common.collect.Iterables;
 import com.google.errorprone.annotations.CanIgnoreReturnValue;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileVisitResult;
+import java.nio.file.Path;
+import java.nio.file.SimpleFileVisitor;
+import java.nio.file.attribute.BasicFileAttributes;
+import junit.framework.TestCase;
 
 /**
  * Tests for {@link Files#fileTraverser()}.
@@ -29,13 +34,38 @@ import java.io.IOException;
  * @author Jens Nyman
  */
 
-public class FilesFileTraverserTest extends IoTestCase {
+@AndroidIncompatible // Android forbids much filesystem access. Maybe we could make it work?
+public class FilesFileTraverserTest extends TestCase {
 
   private File rootDir;
 
   @Override
   public void setUp() throws IOException {
-    rootDir = createTempDir();
+    rootDir = Files.createTempDir();
+  }
+
+  @Override
+  public void tearDown() throws IOException {
+    // delete rootDir and its contents
+    java.nio.file.Files.walkFileTree(
+        rootDir.toPath(),
+        new SimpleFileVisitor<Path>() {
+          @Override
+          public FileVisitResult visitFile(Path file, BasicFileAttributes attrs)
+              throws IOException {
+            java.nio.file.Files.deleteIfExists(file);
+            return FileVisitResult.CONTINUE;
+          }
+
+          @Override
+          public FileVisitResult postVisitDirectory(Path dir, IOException exc) throws IOException {
+            if (exc != null) {
+              return FileVisitResult.TERMINATE;
+            }
+            java.nio.file.Files.deleteIfExists(dir);
+            return FileVisitResult.CONTINUE;
+          }
+        });
   }
 
   public void testFileTraverser_emptyDirectory() throws Exception {

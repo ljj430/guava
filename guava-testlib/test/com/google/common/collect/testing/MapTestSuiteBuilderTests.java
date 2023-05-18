@@ -46,7 +46,6 @@ import java.util.function.Predicate;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests {@link MapTestSuiteBuilder} by using it against maps that have various negative behaviors.
@@ -108,7 +107,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
               }
 
               @Override
-              public @Nullable String put(String key, String value) {
+              public String put(String key, String value) {
                 checkNotNull(key);
                 return map.put(key, value);
               }
@@ -140,7 +139,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
               }
 
               @Override
-              public boolean equals(@Nullable Object o) {
+              public boolean equals(Object o) {
                 return map.equals(o);
               }
 
@@ -150,7 +149,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
               }
 
               @Override
-              public @Nullable String remove(Object key) {
+              public String remove(Object key) {
                 return map.remove(key);
               }
 
@@ -201,7 +200,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                         }
 
                         @Override
-                        public boolean equals(@Nullable Object obj) {
+                        public boolean equals(Object obj) {
                           return next.equals(obj);
                         }
 
@@ -250,7 +249,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
                 }
 
                 @Override
-                public boolean equals(@Nullable Object o) {
+                public boolean equals(Object o) {
                   return map.entrySet().equals(o);
                 }
 
@@ -261,7 +260,7 @@ public final class MapTestSuiteBuilderTests extends TestCase {
               }
 
               @Override
-              public @Nullable String put(String key, String value) {
+              public String put(String key, String value) {
                 checkNotNull(value);
                 return map.put(key, value);
               }

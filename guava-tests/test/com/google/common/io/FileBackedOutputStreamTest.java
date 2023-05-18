@@ -28,6 +28,7 @@ import java.util.Arrays;
  *
  * @author Chris Nokleberg
  */
+@AndroidIncompatible // Android forbids much filesystem access. Maybe we could make it work?
 public class FileBackedOutputStreamTest extends IoTestCase {
 
 
@@ -79,7 +80,6 @@ public class FileBackedOutputStreamTest extends IoTestCase {
   }
 
 
-  @AndroidIncompatible // Finalization probably just doesn't happen fast enough?
   public void testFinalizeDeletesFile() throws Exception {
     byte[] data = newPreFilledByteArray(100);
     FileBackedOutputStream out = new FileBackedOutputStream(0, true);

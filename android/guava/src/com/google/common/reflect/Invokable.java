@@ -64,6 +64,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 14.0 (no longer implements {@link AccessibleObject} or {@code GenericDeclaration} since
  *     31.0)
  */
+@Beta
 @ElementTypesAreNonnullByDefault
 public abstract class Invokable<T, R> implements AnnotatedElement, Member {
   private final AccessibleObject accessibleObject;
@@ -367,7 +368,6 @@ public abstract class Invokable<T, R> implements AnnotatedElement, Member {
   @DoNotCall("fails under Android VMs; do not use from guava-android")
   @Deprecated
   @IgnoreJRERequirement
-  @Beta
   public abstract AnnotatedType getAnnotatedReturnType();
 
   static class MethodInvokable<T> extends Invokable<T, Object> {

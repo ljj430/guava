@@ -20,7 +20,6 @@ import com.google.common.annotations.GwtCompatible;
 import com.google.common.collect.Multiset.Entry;
 import java.util.Collections;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link Multisets#immutableEntry}.
@@ -29,7 +28,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  */
 @GwtCompatible
 public class MultisetsImmutableEntryTest extends TestCase {
-  private static final @Nullable String NE = null;
+  private static final String NE = null;
 
   private static <E> Entry<E> entry(final E element, final int count) {
     return Multisets.immutableEntry(element, count);

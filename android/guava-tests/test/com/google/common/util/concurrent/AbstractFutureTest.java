@@ -48,7 +48,6 @@ import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.LockSupport;
 import junit.framework.AssertionFailedError;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Tests for {@link AbstractFuture}.
@@ -445,10 +444,10 @@ public class AbstractFutureTest extends TestCase {
     final ExecutorService executor = Executors.newFixedThreadPool(barrier.getParties());
     final AtomicReference<AbstractFuture<String>> currentFuture = Atomics.newReference();
     final AtomicInteger numSuccessfulSetCalls = new AtomicInteger();
-    Callable<@Nullable Void> completeSuccessfullyRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> completeSuccessfullyRunnable =
+        new Callable<Void>() {
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().set("set")) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -456,12 +455,12 @@ public class AbstractFutureTest extends TestCase {
             return null;
           }
         };
-    Callable<@Nullable Void> completeExceptionallyRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> completeExceptionallyRunnable =
+        new Callable<Void>() {
           Exception failureCause = new Exception("setException");
 
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().setException(failureCause)) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -469,10 +468,10 @@ public class AbstractFutureTest extends TestCase {
             return null;
           }
         };
-    Callable<@Nullable Void> cancelRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> cancelRunnable =
+        new Callable<Void>() {
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().cancel(true)) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -480,12 +479,12 @@ public class AbstractFutureTest extends TestCase {
             return null;
           }
         };
-    Callable<@Nullable Void> setFutureCompleteSuccessfullyRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> setFutureCompleteSuccessfullyRunnable =
+        new Callable<Void>() {
           ListenableFuture<String> future = Futures.immediateFuture("setFuture");
 
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().setFuture(future)) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -493,13 +492,13 @@ public class AbstractFutureTest extends TestCase {
             return null;
           }
         };
-    Callable<@Nullable Void> setFutureCompleteExceptionallyRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> setFutureCompleteExceptionallyRunnable =
+        new Callable<Void>() {
           ListenableFuture<String> future =
               Futures.immediateFailedFuture(new Exception("setFuture"));
 
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().setFuture(future)) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -507,12 +506,12 @@ public class AbstractFutureTest extends TestCase {
             return null;
           }
         };
-    Callable<@Nullable Void> setFutureCancelRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> setFutureCancelRunnable =
+        new Callable<Void>() {
           ListenableFuture<String> future = Futures.immediateCancelledFuture();
 
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             if (currentFuture.get().setFuture(future)) {
               numSuccessfulSetCalls.incrementAndGet();
             }
@@ -575,9 +574,9 @@ public class AbstractFutureTest extends TestCase {
           k % 2 == 0 ? collectResultsRunnable : collectResultsTimedGetRunnable;
       allTasks.add(Executors.callable(listener));
       allTasks.add(
-          new Callable<@Nullable Void>() {
+          new Callable<Void>() {
             @Override
-            public @Nullable Void call() throws Exception {
+            public Void call() throws Exception {
               currentFuture.get().addListener(listener, executor);
               return null;
             }
@@ -761,21 +760,21 @@ public class AbstractFutureTest extends TestCase {
     final AtomicReference<AbstractFuture<String>> currentFuture = Atomics.newReference();
     final AtomicBoolean setFutureSuccess = new AtomicBoolean();
     final AtomicBoolean cancellationSuccess = new AtomicBoolean();
-    Callable<@Nullable Void> cancelRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> cancelRunnable =
+        new Callable<Void>() {
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             cancellationSuccess.set(currentFuture.get().cancel(true));
             awaitUnchecked(barrier);
             return null;
           }
         };
-    Callable<@Nullable Void> setFutureCompleteSuccessfullyRunnable =
-        new Callable<@Nullable Void>() {
+    Callable<Void> setFutureCompleteSuccessfullyRunnable =
+        new Callable<Void>() {
           final ListenableFuture<String> future = Futures.immediateFuture("hello");
 
           @Override
-          public @Nullable Void call() {
+          public Void call() {
             setFutureSuccess.set(currentFuture.get().setFuture(future));
             awaitUnchecked(barrier);
             return null;
@@ -1210,10 +1209,13 @@ public class AbstractFutureTest extends TestCase {
       throws InterruptedException {
     try {
       String got = future.get();
-      throw new AssertionError("Expected exception but got " + got);
+      fail("Expected exception but got " + got);
     } catch (ExecutionException e) {
       return e;
     }
+
+    // unreachable, but compiler doesn't know that fail() always throws
+    return null;
   }
 
   private static final class WaiterThread extends Thread {

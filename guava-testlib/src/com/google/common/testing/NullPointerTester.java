@@ -68,7 +68,6 @@ import org.checkerframework.checker.nullness.qual.Nullable;
  * @since 10.0
  */
 @GwtIncompatible
-@ElementTypesAreNonnullByDefault
 public final class NullPointerTester {
 
   private final ClassToInstanceMap<Object> defaults = MutableClassToInstanceMap.create();
@@ -326,7 +325,7 @@ public final class NullPointerTester {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       if (obj instanceof Signature) {
         Signature that = (Signature) obj;
         return name.equals(that.name) && parameterTypes.equals(that.parameterTypes);
@@ -349,18 +348,11 @@ public final class NullPointerTester {
    *     static
    */
   private void testParameter(
-      @Nullable Object instance, Invokable<?, ?> invokable, int paramIndex, Class<?> testedClass) {
-    /*
-     * com.google.common is starting to rely on type-use annotations, which aren't visible under
-     * Android VMs. So we skip testing there.
-     */
-    if (isAndroid() && Reflection.getPackageName(testedClass).startsWith("com.google.common")) {
-      return;
-    }
+      Object instance, Invokable<?, ?> invokable, int paramIndex, Class<?> testedClass) {
     if (isPrimitiveOrNullable(invokable.getParameters().get(paramIndex))) {
       return; // there's nothing to test
     }
-    @Nullable Object[] params = buildParamList(invokable, paramIndex);
+    Object[] params = buildParamList(invokable, paramIndex);
     try {
       @SuppressWarnings("unchecked") // We'll get a runtime exception if the type is wrong.
       Invokable<Object, ?> unsafe = (Invokable<Object, ?>) invokable;
@@ -396,10 +388,9 @@ public final class NullPointerTester {
     }
   }
 
-  private @Nullable Object[] buildParamList(
-      Invokable<?, ?> invokable, int indexOfParamToSetToNull) {
+  private Object[] buildParamList(Invokable<?, ?> invokable, int indexOfParamToSetToNull) {
     ImmutableList<Parameter> params = invokable.getParameters();
-    @Nullable Object[] args = new Object[params.size()];
+    Object[] args = new Object[params.size()];
 
     for (int i = 0; i < args.length; i++) {
       Parameter param = params.get(i);
@@ -415,7 +406,7 @@ public final class NullPointerTester {
     return args;
   }
 
-  private <T> @Nullable T getDefaultValue(TypeToken<T> type) {
+  private <T> T getDefaultValue(TypeToken<T> type) {
     // We assume that all defaults are generics-safe, even if they aren't,
     // we take the risk.
     @SuppressWarnings("unchecked")
@@ -483,7 +474,7 @@ public final class NullPointerTester {
   private <T> T newDefaultReturningProxy(final TypeToken<T> type) {
     return new DummyProxy() {
       @Override
-      <R> @Nullable R dummyReturnValue(TypeToken<R> returnType) {
+      <R> R dummyReturnValue(TypeToken<R> returnType) {
         return getDefaultValue(returnType);
       }
     }.newProxy(type);
@@ -662,10 +653,5 @@ public final class NullPointerTester {
     abstract boolean isNullable(Invokable<?, ?> invokable);
 
     abstract boolean isNullable(Parameter param);
-  }
-
-  private static boolean isAndroid() {
-    // Arguably it would make more sense to test "can we see type-use annotations" directly....
-    return checkNotNull(System.getProperty("java.runtime.name", "")).contains("Android");
   }
 }

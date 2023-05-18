@@ -33,7 +33,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /** Test case for {@link TrustedListenableFutureTask}. */
 @GwtCompatible(emulated = true)
@@ -173,11 +172,11 @@ public class TrustedListenableFutureTaskTest extends TestCase {
   public void testToString() throws Exception {
     final CountDownLatch enterLatch = new CountDownLatch(1);
     final CountDownLatch exitLatch = new CountDownLatch(1);
-    final TrustedListenableFutureTask<@Nullable Void> task =
+    final TrustedListenableFutureTask<Void> task =
         TrustedListenableFutureTask.create(
-            new Callable<@Nullable Void>() {
+            new Callable<Void>() {
               @Override
-              public @Nullable Void call() throws Exception {
+              public Void call() throws Exception {
                 enterLatch.countDown();
                 new CountDownLatch(1).await(); // wait forever
                 return null;

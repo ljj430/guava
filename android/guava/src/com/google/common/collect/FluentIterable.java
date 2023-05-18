@@ -16,6 +16,7 @@ package com.google.common.collect;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import com.google.common.annotations.Beta;
 import com.google.common.annotations.GwtCompatible;
 import com.google.common.annotations.GwtIncompatible;
 import com.google.common.base.Function;
@@ -162,6 +163,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0 (since 18.0 as an overload of {@code of})
    */
+  @Beta
   public static <E extends @Nullable Object> FluentIterable<E> from(E[] elements) {
     return from(Arrays.asList(elements));
   }
@@ -194,6 +196,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <T extends @Nullable Object> FluentIterable<T> concat(
       Iterable<? extends T> a, Iterable<? extends T> b) {
     return concatNoDefensiveCopy(a, b);
@@ -212,6 +215,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <T extends @Nullable Object> FluentIterable<T> concat(
       Iterable<? extends T> a, Iterable<? extends T> b, Iterable<? extends T> c) {
     return concatNoDefensiveCopy(a, b, c);
@@ -231,6 +235,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <T extends @Nullable Object> FluentIterable<T> concat(
       Iterable<? extends T> a,
       Iterable<? extends T> b,
@@ -254,6 +259,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    * @throws NullPointerException if any of the provided iterables is {@code null}
    * @since 20.0
    */
+  @Beta
   public static <T extends @Nullable Object> FluentIterable<T> concat(
       Iterable<? extends T>... inputs) {
     return concatNoDefensiveCopy(Arrays.copyOf(inputs, inputs.length));
@@ -273,13 +279,14 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <T extends @Nullable Object> FluentIterable<T> concat(
       final Iterable<? extends Iterable<? extends T>> inputs) {
     checkNotNull(inputs);
     return new FluentIterable<T>() {
       @Override
       public Iterator<T> iterator() {
-        return Iterators.concat(Iterators.transform(inputs.iterator(), Iterable::iterator));
+        return Iterators.concat(Iterators.transform(inputs.iterator(), Iterables.<T>toIterator()));
       }
     };
   }
@@ -312,6 +319,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <E extends @Nullable Object> FluentIterable<E> of() {
     return FluentIterable.from(Collections.<E>emptyList());
   }
@@ -324,6 +332,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 20.0
    */
+  @Beta
   public static <E extends @Nullable Object> FluentIterable<E> of(
       @ParametricNullness E element, E... elements) {
     return from(Lists.asList(element, elements));
@@ -392,6 +401,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 18.0
    */
+  @Beta
   public final FluentIterable<E> append(Iterable<? extends E> other) {
     return FluentIterable.concat(getDelegate(), other);
   }
@@ -404,6 +414,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 18.0
    */
+  @Beta
   public final FluentIterable<E> append(E... elements) {
     return FluentIterable.concat(getDelegate(), Arrays.asList(elements));
   }
@@ -824,6 +835,7 @@ public abstract class FluentIterable<E extends @Nullable Object> implements Iter
    *
    * @since 18.0
    */
+  @Beta
   public final String join(Joiner joiner) {
     return joiner.join(this);
   }

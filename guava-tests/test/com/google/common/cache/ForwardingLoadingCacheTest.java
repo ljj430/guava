@@ -112,7 +112,7 @@ public class ForwardingLoadingCacheTest extends TestCase {
   private static class OnlyGet<K, V> extends ForwardingLoadingCache<K, V> {
     @Override
     protected LoadingCache<K, V> delegate() {
-      throw new AssertionError();
+      return null;
     }
   }
 }

@@ -58,13 +58,16 @@ public abstract class AbstractIdleService implements Service {
     protected final void doStart() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
           .execute(
-              () -> {
-                try {
-                  startUp();
-                  notifyStarted();
-                } catch (Throwable t) {
-                  restoreInterruptIfIsInterruptedException(t);
-                  notifyFailed(t);
+              new Runnable() {
+                @Override
+                public void run() {
+                  try {
+                    startUp();
+                    notifyStarted();
+                  } catch (Throwable t) {
+                    restoreInterruptIfIsInterruptedException(t);
+                    notifyFailed(t);
+                  }
                 }
               });
     }
@@ -73,13 +76,16 @@ public abstract class AbstractIdleService implements Service {
     protected final void doStop() {
       MoreExecutors.renamingDecorator(executor(), threadNameSupplier)
           .execute(
-              () -> {
-                try {
-                  shutDown();
-                  notifyStopped();
-                } catch (Throwable t) {
-                  restoreInterruptIfIsInterruptedException(t);
-                  notifyFailed(t);
+              new Runnable() {
+                @Override
+                public void run() {
+                  try {
+                    shutDown();
+                    notifyStopped();
+                  } catch (Throwable t) {
+                    restoreInterruptIfIsInterruptedException(t);
+                    notifyFailed(t);
+                  }
                 }
               });
     }
@@ -107,7 +113,12 @@ public abstract class AbstractIdleService implements Service {
    * stopped, and should return promptly.
    */
   protected Executor executor() {
-    return command -> MoreExecutors.newThread(threadNameSupplier.get(), command).start();
+    return new Executor() {
+      @Override
+      public void execute(Runnable command) {
+        MoreExecutors.newThread(threadNameSupplier.get(), command).start();
+      }
+    };
   }
 
   @Override

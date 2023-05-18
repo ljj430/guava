@@ -23,7 +23,6 @@ import com.google.common.util.concurrent.UncheckedExecutionException;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.atomic.AtomicReference;
 import junit.framework.TestCase;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 /**
  * Unit test for {@link AbstractLoadingCache}.
@@ -47,7 +46,7 @@ public class AbstractLoadingCacheTest extends TestCase {
           }
 
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return valueRef.get();
           }
         };
@@ -79,7 +78,7 @@ public class AbstractLoadingCacheTest extends TestCase {
           }
 
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return valueRef.get();
           }
         };
@@ -111,7 +110,7 @@ public class AbstractLoadingCacheTest extends TestCase {
           }
 
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return valueRef.get();
           }
         };
@@ -143,7 +142,7 @@ public class AbstractLoadingCacheTest extends TestCase {
           }
 
           @Override
-          public @Nullable Object getIfPresent(Object key) {
+          public Object getIfPresent(Object key) {
             return valueRef.get();
           }
         };

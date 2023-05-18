@@ -233,7 +233,7 @@ public class IteratorTesterTest extends TestCase {
               @Override
               public Integer next() {
                 // We should throw here, but we won't!
-                return 0;
+                return null;
               }
 
               @Override

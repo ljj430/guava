@@ -40,12 +40,11 @@ import java.util.Map.Entry;
 import java.util.Set;
 import junit.framework.Assert;
 import junit.framework.AssertionFailedError;
-import org.checkerframework.checker.nullness.qual.Nullable;
 
 @GwtCompatible(emulated = true)
 public class Helpers {
   // Clone of Objects.equal
-  static boolean equal(@Nullable Object a, @Nullable Object b) {
+  static boolean equal(Object a, Object b) {
     return a == b || (a != null && a.equals(b));
   }
 
@@ -254,7 +253,7 @@ public class Helpers {
   }
 
   public static <K, V> Comparator<Entry<K, V>> entryComparator(
-      @Nullable Comparator<? super K> keyComparator) {
+      Comparator<? super K> keyComparator) {
     return new Comparator<Entry<K, V>>() {
       @Override
       @SuppressWarnings("unchecked") // no less safe than putting it in the map!
@@ -385,7 +384,7 @@ public class Helpers {
 
       @SuppressWarnings("unchecked")
       @Override
-      public boolean equals(@Nullable Object o) {
+      public boolean equals(Object o) {
         if (o instanceof Entry) {
           Entry<K, V> e = (Entry<K, V>) o;
           e.setValue(value); // muhahaha!
@@ -463,7 +462,7 @@ public class Helpers {
     }
 
     @Override
-    public int compare(@Nullable String lhs, @Nullable String rhs) {
+    public int compare(String lhs, String rhs) {
       if (lhs == rhs) {
         return 0;
       }
@@ -487,7 +486,7 @@ public class Helpers {
     }
 
     @Override
-    public boolean equals(@Nullable Object obj) {
+    public boolean equals(Object obj) {
       if (obj instanceof NullsBefore) {
         NullsBefore other = (NullsBefore) obj;
         return justAfterNull.equals(other.justAfterNull);
